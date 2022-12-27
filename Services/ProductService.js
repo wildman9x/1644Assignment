@@ -18,9 +18,10 @@ module.exports = class ProductService {
         }
     }
 
-    static async getProductsByName(name) {
+    static async getProductsByName(nameToSearch) {
         try {
-            return await Product.find({ name: { $regex: name, $options: "i" } });
+            // find all products that contain the name
+            return await Product.find({ name: { $regex: nameToSearch, $options: "i" } }).exec();
         } catch (error) {
             console.log(error);
         }

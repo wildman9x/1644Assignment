@@ -1,4 +1,5 @@
 const ProductService = require("../Services/ProductService");
+const ProductModel = require("../Models/Product");
 const { validationResult } = require("express-validator");
 const { response } = require("express");
 
@@ -8,7 +9,8 @@ module.exports = class ProductController {
             const products = await ProductService.getAllProducts();
             // console.log("All products:");
             //get all products to render in index.hbs
-            res.render('index', { products: products });
+            res.render('index', { products: products,
+            PageName: 'Home' });
             // res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -30,9 +32,11 @@ module.exports = class ProductController {
 
     static async getProductsByName(req, res) {
         try {
-            const { name } = req.params;
-            const products = await ProductService.getProductsByName(name);
-            res.status(200).json(products);
+            const { name } = req.query;
+            console.log(name);
+            const products = await ProductModel.find({ name: { $regex: name, $options: "i" } }).exec();
+            res.render('index', { products: products,
+            PageName: 'Search results' });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

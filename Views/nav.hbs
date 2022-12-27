@@ -32,7 +32,7 @@
 		<div class="side-nav-section">
 			<div class="side-nav">
 				<a data-bs-toggle="collapse" aria-expended="false" aria-controls="collapse-1" onclick="location.href='#collapse-1'" role="button">
-					<button class="sidebar-nav-title btn-custom button">Product</button>
+					<button class="sidebar-nav-title btn-custom button">{{PageName}}</button>
 				</a>
 			</div>
 		</div>
@@ -40,9 +40,9 @@
 			class="side-nav-section">
 			{{!-- {# search field #} --}}
 
-			<form action="/search" method="GET">
+			<form action="/product/search" method="GET">
 				<input
-				type="text" name="search" placeholder="Search">
+				type="text" name="name" placeholder="Search">
 			{{!-- {# <button type="submit" class="btn-custom button">Search</button> #} --}}
 			</form>
 
