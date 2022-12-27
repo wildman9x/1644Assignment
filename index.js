@@ -8,10 +8,23 @@ const productRoutes = require('./routes/product.routes')
 const { route } = require('./routes/product.routes')
 const router = express.Router()
 const path = require('path')
+const fs = require('fs')
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err))
+
+var partialDir = path.join(__dirname, '/Views')
+var filename = fs.readdirSync(partialDir)
+filename.forEach(function (file) {
+    var matches = /^([^.]+).hbs$/.exec(file)
+    if (!matches) {
+        return
+    }
+    var name = matches[1]
+    var template = fs.readFileSync(partialDir + '/' + file, 'utf8')
+    hbs.registerPartial(name, template)
+})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

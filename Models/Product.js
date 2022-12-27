@@ -23,11 +23,6 @@ const productSchema = new Schema({
         required: 'Product image is required',
         trim: true
     },
-    category: {
-        type: String,
-        required: 'Product category is required',
-        trim: true
-    },
     quantity: {
         type: Number,
         required: 'Product quantity is required',

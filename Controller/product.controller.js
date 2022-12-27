@@ -9,6 +9,7 @@ module.exports = class ProductController {
             // console.log("All products:");
             //get all products to render in index.hbs
             res.render('index', { products: products });
+            // res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -44,7 +45,8 @@ module.exports = class ProductController {
                 return res.status(400).json({ errors: errors.array() });
             }
             const product = await ProductService.createProduct(req.body);
-            res.status(201).json(product);
+            // res.status(201).json(product);
+            res.redirect('/product');
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
