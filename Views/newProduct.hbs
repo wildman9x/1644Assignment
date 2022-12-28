@@ -13,12 +13,13 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="/css/style.css" />
-    <title>Add a new product</title>
+    <title>{{PageName}} {{product.name}}</title>
 </head>
 <div class="wrap">
     <div class="main">
 
         {{>nav}}
+
         <body>
             {{!-- a form to let the user create a new product
             a product has a name, image link, price, quantity, description --}}
@@ -26,29 +27,37 @@
                 <div class="product-list" data-per-row="3">
                     <div class="row">
                         <div class="col-xxl-4">
-                            <form action="/product/new" method="POST">
+                            {{!-- <form action="/product/new" method="POST"> --}}
+                            {{!-- if pagename is "Edit product" then form action is /product/edit --}}
+                            {{!-- if pagename is "Add a new Product" then form action is /product/new --}}
+                            {{#ifEquals PageName "Edit product"}}
+                            <form action="/product/edit" method="POST">
+                                {{else}}
+                                <form action="/product/new" method="POST">
+                                    {{/ifEquals}}
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required="true">
+                                    <input type="text" value="{{product.name}}" class="form-control" id="name"
+                                        name="name" placeholder="Enter name" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                    <input type="text" class="form-control" id="image" name="image"
+                                    <input type="text" value="{{product.image}}" class="form-control" id="image" name="image"
                                         placeholder="Enter image link" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Price</label>
-                                    <input type="text" class="form-control" id="price" name="price"
+                                    <input type="text" value="{{product.price}}" class="form-control" id="price" name="price"
                                         placeholder="Enter price" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="quantity">Quantity</label>
-                                    <input type="text" class="form-control" id="quantity" name="quantity"
+                                    <input type="text" value="{{product.quantity}}" class="form-control" id="quantity" name="quantity"
                                         placeholder="Enter quantity" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <input type="text" class="form-control" id="description" name="description"
+                                    <input type="text" value="{{product.description}}" class="form-control" id="description" name="description"
                                         placeholder="Enter description" required="true">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
