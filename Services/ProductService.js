@@ -50,4 +50,12 @@ module.exports = class ProductService {
             console.log(error);
         }
     }
+
+    static async updateProduct(id, product) {
+        try {
+            return await Product.findByIdAndUpdate(id, product);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 };

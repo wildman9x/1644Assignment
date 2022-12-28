@@ -80,4 +80,17 @@ module.exports = class ProductController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async updateProduct(req, res) {
+        try {
+            const { id } = req.params;
+            console.log(id);
+            await ProductService.updateProduct(id, req.body);
+            
+            // redirect to the product
+            res.redirect(`/product/product/${id}`);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 };

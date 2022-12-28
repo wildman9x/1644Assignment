@@ -35,6 +35,16 @@
                     <form class="product-add"><input class="form-control" type="hidden">
                         <button class="button" onclick="location.href = '/product/edit/{{product.id}}'" type="button" style="width: 100%;">
                             Edit product</button>
+                            <button class="button" onclick="confirmDelete()" type="button" style="width: 100%;">
+                            Delete product</button>
+                            <script>
+                                function confirmDelete() {
+                                    if (confirm("Are you sure to delete this product?") == true)
+                                        location.href = '/product/delete/{{product.id}}';
+                                    else
+                                        location.href = '/product/product/{{product.id}}';
+                                }
+                            </script>
                     </form>
                 </div>
                 {{!-- {# create a collage of the product's images #} --}}

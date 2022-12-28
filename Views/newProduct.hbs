@@ -30,8 +30,8 @@
                             {{!-- <form action="/product/new" method="POST"> --}}
                             {{!-- if pagename is "Edit product" then form action is /product/edit --}}
                             {{!-- if pagename is "Add a new Product" then form action is /product/new --}}
-                            {{#ifEquals PageName "Edit product"}}
-                            <form action="/product/edit" method="POST">
+                            {{#ifEquals PageName 'Edit Product'}}
+                            <form action="/product/edit/{{product.id}}" method="POST">
                                 {{else}}
                                 <form action="/product/new" method="POST">
                                     {{/ifEquals}}
