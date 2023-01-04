@@ -6,8 +6,9 @@ const { response } = require("express");
 module.exports = class ProductController {
     static async getAllProducts(req, res) {
         try {
+            console.log("Getting all products:");
             const products = await ProductService.getAllProducts();
-            // console.log("All products:");
+            console.log("All products:");
             //get all products to render in index.hbs
             res.render('index', { products: products,
             PageName: 'Home' });
