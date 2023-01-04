@@ -25,8 +25,10 @@ filename.forEach(function (file) {
     var template = fs.readFileSync(partialDir + '/' + file, 'utf8')
     hbs.registerPartial(name, template)
 })
+// Register a helper to determine if two arguments are equal. If they are, run the block of code within the helper. If not, run the inverse code.
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
-    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+    // If the two arguments are equal, run the code in the options.fn() function. If not, run the code in the options.inverse() function.
+    return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
 
 app.use(express.json())
