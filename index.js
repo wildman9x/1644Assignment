@@ -32,6 +32,7 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
+app.set('views', path.join(__dirname, '/Views'))
 app.set('view engine', 'hbs')
 
 app.use(express.static(path.join(__dirname, '/public')));
