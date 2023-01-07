@@ -1,52 +1,56 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000
-const mongoose = require('mongoose')
-const hbs = require('hbs')
-const productRoutes = require('./Routes/product.routes')
-const { route } = require('./Routes/product.routes')
-const router = express.Router()
-const path = require('path')
-const fs = require('fs')
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
+const hbs = require("hbs");
+const productRoutes = require("./Routes/product.routes");
+const { route } = require("./Routes/product.routes");
+const router = express.Router();
+const path = require("path");
+const fs = require("fs");
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log(err))
+mongoose
+    .connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log(err));
 
-var partialDir = path.join(__dirname, '/Views')
-var filename = fs.readdirSync(partialDir)
+var partialDir = path.join(__dirname, "/Views");
+var filename = fs.readdirSync(partialDir);
 filename.forEach(function (file) {
-    var matches = /^([^.]+).hbs$/.exec(file)
+    var matches = /^([^.]+).hbs$/.exec(file);
     if (!matches) {
-        return
+        return;
     }
-    var name = matches[1]
-    var template = fs.readFileSync(partialDir + '/' + file, 'utf8')
-    hbs.registerPartial(name, template)
-})
+    var name = matches[1];
+    var template = fs.readFileSync(partialDir + "/" + file, "utf8");
+    hbs.registerPartial(name, template);
+});
 // Register a helper to determine if two arguments are equal. If they are, run the block of code within the helper. If not, run the inverse code.
-hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+hbs.registerHelper("ifEquals", function (arg1, arg2, options) {
     // If the two arguments are equal, run the code in the options.fn() function. If not, run the code in the options.inverse() function.
     return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
-app.set('views', path.join(__dirname, '/Views'))
-app.set('view engine', 'hbs')
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.set("views", path.join(__dirname, "/Views"));
+app.set("view engine", "hbs");
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, "/public")));
 
-app.use('/product', productRoutes)
+app.use("/product", productRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+    console.log(`Example app listening at http://localhost:${port}`);
+});
 
-console.log('process.env.MONGODB_URI', process.env.MONGODB_URI)
+console.log("process.env.MONGODB_URI", process.env.MONGODB_URI);
